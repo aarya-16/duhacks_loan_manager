@@ -1,35 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from "react";
+import "./bg-animate.css";
+import styles from "./style";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Chat, Landing, Login, Resources } from "./pages";
+import { Button, Footer, Hero, Navbar } from "./components";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App = () => {
   return (
-    <>
+    <BrowserRouter>
+      <div className="absolute">
+        <div className="absolute inset-0 justify-center">
+          <div className="bg-shape1 bg-teal opacity-50 bg-blur"></div>
+          <div className="bg-shape2 bg-blue opacity-50 bg-blur"></div>
+          <div className="bg-shape1 bg-purple opacity-50 bg-blur"></div>
+        </div>
+      </div>
+      <div className="w-full overflow-hidden">
+        <div className={`${styles.paddingX} ${styles.flexCenter}`}>
+          <div className={`${styles.boxWidth}`}>
+            <Navbar />
+          </div>
+        </div>
+      </div>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/chat" element={<Chat />} />
+          <Route path="/resources" element={<Resources />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    </BrowserRouter>
+  );
+};
 
-export default App
+export default App;
