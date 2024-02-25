@@ -35,7 +35,9 @@ const Hero = () => {
         <h1 className="font-poppins font-semibold ss:text-[68px] text-[52px] text-black ss:leading-[100.8px] leading-[75px] w-full">
           <span ref={el}></span>
         </h1>
-        <Button text="Chat Now!" styles="mt-10 ml-10" />
+        <div className="flex justify-center">
+          <Button text="Chat Now!" styles="mt-10 mx-auto" />
+        </div>
       </div>
       <div>
         <img
