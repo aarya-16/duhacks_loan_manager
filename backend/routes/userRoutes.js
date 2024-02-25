@@ -53,7 +53,7 @@ router.get("/users/:email", async (req, res) => {
 router.post("/users/:email/chats/:chatno/messages", async (req, res) => {
   try {
     const { email, chatno } = req.params;
-    const { message, response } = req.body; // Include response in the request body
+    const { message, response } = req.body;
 
     // Validate request body
     if (!message) {

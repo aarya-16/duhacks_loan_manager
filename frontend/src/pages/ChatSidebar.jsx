@@ -3,16 +3,17 @@ import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 import ChatWindow from "./ChatWindow";
 
-const ChatSidebar = () => {
+const ChatSidebar = ({ setSelectedChat, setCount }) => {
   const { user } = useAuth0();
   const [chatCount, setChatCount] = useState(0);
-  const [selectedChat, setSelectedChat] = useState(null);
 
   const handleChatClick = async (chatno) => {
     try {
       const response = await axios.get(
         `http://localhost:3000/api/users/${user.email}/chats/${chatno}/messages`
       );
+      setCount(chatno);
+      // Use setSelectedChat from props to update the selected chat in the Chat component
       setSelectedChat(response.data);
     } catch (error) {
       console.error(error);
@@ -77,9 +78,6 @@ const ChatSidebar = () => {
           </button>
         ))}
       </div>
-
-      {/* Pass the selected chat to the ChatWindow component */}
-      {selectedChat && <ChatWindow chat={selectedChat} />}
     </div>
   );
 };

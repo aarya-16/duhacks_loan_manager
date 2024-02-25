@@ -1,13 +1,59 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { Message } from "../components";
+import { useAuth0 } from "@auth0/auth0-react";
 
-const ChatWindow = ({ chat }) => {
+async function query(data) {
+  const response = await fetch(
+    "https://api-inference.huggingface.co/models/Aarya4536/tinyllama-therapy-bot-v1",
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.REACT_APP_AUTH_TOKEN}`,
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify(data),
+    }
+  );
+  const result = await response.json();
+  return result;
+}
+
+const ChatWindow = ({ selectedChat, count }) => {
+  const { user } = useAuth0();
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
-    setMessages(chat);
-  }, [chat]);
+    if (Array.isArray(selectedChat)) {
+      setMessages(selectedChat);
+    } else {
+      setMessages([]);
+    }
+  }, [selectedChat]);
+
+  const sendMessageToServer = async () => {
+    try {
+      const response = await query({
+        inputs: inputValue,
+      });
+
+      const generatedResponse = response.generatedText;
+
+      const apiResponse = await axios.post(
+        `http://localhost:3000/api/users/${user.email}/chats/${count}/messages`,
+        {
+          message: inputValue,
+          response: generatedResponse,
+        }
+      );
+
+      const updatedChat = apiResponse.data.chat;
+      setMessages(updatedChat.messages);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
@@ -15,7 +61,7 @@ const ChatWindow = ({ chat }) => {
 
   const handleButtonClick = () => {
     if (inputValue.trim() !== "") {
-      setMessages([...messages, inputValue]);
+      sendMessageToServer();
       setInputValue("");
     }
   };
