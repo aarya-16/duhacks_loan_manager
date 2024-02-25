@@ -1,9 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
+import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
 import ChatSidebar from "./ChatSidebar";
 import ChatWindow from "./ChatWindow";
 
 const Chat = () => {
   const navbarHeight = 99;
+  const { user } = useAuth0();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await axios.post("http://localhost:3000/api/users", {
+          email: user.email,
+        });
+        console.log(response);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchUser();
+  }, []);
 
   return (
     <div className="flex" style={{ height: `calc(100vh - ${navbarHeight}px)` }}>
