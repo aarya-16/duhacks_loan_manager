@@ -47,5 +47,3 @@ Integrating the chatbot into our website was the main Hurdle that we faced in ou
 ![WhatsApp Image 2024-02-26 at 12 01 12 AM](https://github.com/aarya-16/duhacks_project/assets/129652475/52f79e3e-7798-4477-817c-0939cc61bba1)
 ##
 ![WhatsApp Image 2024-02-25 at 11 59 52 PM](https://github.com/aarya-16/duhacks_project/assets/129652475/7592b58c-6512-401e-9d35-9d8b6ffd04f7)
-
-
