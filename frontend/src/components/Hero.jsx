@@ -9,7 +9,7 @@ const Hero = () => {
 
   useEffect(() => {
     const typed = new Typed(el.current, {
-      strings: ["Solved with AI."],
+      strings: ["Done by BelonggAI."],
       startDelay: 300,
       typeSpeed: 100,
       backSpeed: 100,
@@ -28,7 +28,7 @@ const Hero = () => {
       >
         <div className="flex flex-row justify-between items-center w-full">
           <h1 className="flex-1 font-poppins font-semibold ss:text-[72px] text-[52px] text-black ss:leading-[100.8px] leading-[75px]">
-            Mental Health <br className="sm:block hidden" />{" "}
+            Translation  <br className="sm:block hidden" />{" "}
           </h1>
         </div>
 
